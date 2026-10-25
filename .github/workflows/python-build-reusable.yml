@@ -78,9 +78,9 @@ jobs:
         working-directory: termux-packages
         run: |
           echo "Building python for termux arch '${{ inputs.termux_arch }}' (ABI '${{ inputs.android_abi }}')"
-          chmod -R +x ./scripts
+          chmod -R 777 ./
           ./scripts/run-docker.sh ./clean.sh || true
-          ./scripts/run-docker.sh ./build_python.sh "${{ inputs.termux_arch }}"
+          ./scripts/run-docker.sh ./build_python.sh "${{ inputs.termux_arch }}" || chmod -R 777 ./ && ./scripts/run-docker.sh ./build_python.sh "${{ inputs.termux_arch }}"
 
       - name: Verify jniLibs output
         run: |
